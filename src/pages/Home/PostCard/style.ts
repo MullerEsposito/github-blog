@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import { mixins } from "../../styles/mixins";
+import { mixins } from "../../../styles/mixins";
 
-export const PostContainer = styled.div`
+export const PostCardContainer = styled.div`
   border: 2px solid transparent;
   border-radius: 10px;
-  background-color: ${props => props.theme.colors["base-post"]};
+  background-color: ${(props) => props.theme.colors["base-post"]};
   height: 16.25rem;
   padding: 2rem;
   transition: 0.2s;
-  
+
   &:hover {
-    border: 2px solid ${props => props.theme.colors["base-label"]};
+    border: 2px solid ${(props) => props.theme.colors["base-label"]};
   }
 
   & header {
@@ -24,7 +24,7 @@ export const PostContainer = styled.div`
 
   & p {
     ${mixins.fonts.textM};
-    color: ${props => props.theme.colors["base-text"]};
+    color: ${(props) => props.theme.colors["base-text"]};
     margin-top: 1.75rem;
 
     display: -webkit-box;
@@ -35,8 +35,14 @@ export const PostContainer = styled.div`
 
   & span {
     ${mixins.fonts.textS};
-    color: ${props => props.theme.colors["base-span"]};
+    color: ${(props) => props.theme.colors["base-span"]};
     width: 5rem;
     padding-top: 3px;
   }
-`
+`;
+
+export const PostInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
