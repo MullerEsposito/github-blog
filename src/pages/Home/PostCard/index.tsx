@@ -1,4 +1,4 @@
-import { PostCardContainer, PostInfo } from "./style";
+import { PostCardContainer } from "./style";
 
 
 export function PostCard() {
