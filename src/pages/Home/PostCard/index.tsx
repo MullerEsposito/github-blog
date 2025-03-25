@@ -1,15 +1,32 @@
+import moment from "moment";
 import { PostCardContainer } from "./style";
 
+export type Issue = {
+  id: number;
+  number: number;
+  html_url: string;
+  user: {
+    login: string;
+  };
+  title: string;
+  created_at: string;
+  body: string;
+  comments: number;
+}
 
-export function PostCard() {
+interface PostCardProps {
+  issue: Issue;
+}
+
+export function PostCard({ issue }: PostCardProps) {
   return (
     <PostCardContainer>
       <header>
-        <h3>JavaScript data types and data structures</h3>
-        <span>Há 1 dia</span>
+        <h3>{issue.title}</h3>
+        <span>{moment(issue.created_at).startOf("minutes").fromNow()}</span>
       </header>
       <p>
-        Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn.
+        {issue.body.slice(0, 90)}...
       </p>    
     </PostCardContainer>
   )

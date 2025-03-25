@@ -12,77 +12,97 @@ import iconGoTo from "@icons/icon-goto.svg"
 
 import { PostContainer } from "./style";
 import { NavLink } from "react-router-dom"
+import { Issue } from "src/pages/Home/PostCard"
+import moment from "moment"
+
+export type Profile = {
+  avatar_url: string;
+  name: string;
+  login: string;
+  company: string;
+  followers: number;
+  bio: string;
+}
 
 interface SummaryProps {
   type: "profile" | "post";
+  profile?: Profile;
+  issue?: Issue;
 }
 
-export function Summary({ type }: SummaryProps) { 
-  const renderProfile = () => (
-    <ProfileContainer>
-      <img src={avatarImg} alt=""/>
+export function Summary({ type, profile, issue }: SummaryProps) { 
+  
+  const renderProfile = () => {
+    if (!profile) return null;
+    return (
+      <ProfileContainer>
+        <img src={profile.avatar_url} alt=""/>
 
-      <section>
-        <header>
-          <h1>Cameron Williamson</h1>
-          <a href="#">
-            GITHUB
-            <img src={iconLink} alt="Ir para o Github" />
-          </a>
-        </header>
-        <p>Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat pulvinar vel mass.</p>
-
-        <Info>
-          <div>
-            <img src={iconUsername} />
-            <p>cameronwll</p>
-          </div>
-          <div>
-            <img src={iconCompany} width="14px"/>            
-            <p>Rocketseat</p>
-          </div>
-          <div>
-            <img src={iconFollowers} width="18px"/>
-            <p>32 seguidores</p>
-          </div>
-        </Info>
-      </section>
-    </ProfileContainer>
-  )
-
-  const renderPost = () => (
-    <PostContainer>
-      <section>
-        <header>
-          <nav>
-            <NavLink to="/">
-              <img src={iconBack} />
-              VOLTAR
-            </NavLink>
+        <section>
+          <header>
+            <h1>{profile.name}</h1>
             <a href="#">
-              VER NO GITHUB
-              <img src={iconGoTo} />
+              GITHUB
+              <img src={iconLink} alt="Ir para o Github" />
             </a>
-          </nav>
-        </header>
-        <h3>JavaScript data types and data structures</h3>
-        <Info>
-          <div>
-            <img src={iconUsername} />
-            <p>cameronwll</p>
-          </div>
-          <div>
-            <img src={iconCallendar} width="14px"/>            
-            <p>Há 1 dia</p>
-          </div>
-          <div>
-            <img src={iconBallon} width="18px"/>
-            <p>5 comentários</p>
-          </div>
-        </Info>
-      </section>
-    </PostContainer>
-  )
+          </header>
+          <p>{profile.bio}</p>
+
+          <Info>
+            <div>
+              <img src={iconUsername} />
+              <p>{profile.login}</p>
+            </div>
+            <div>
+              <img src={iconCompany} width="14px"/>            
+              <p>{profile.company}</p>
+            </div>
+            <div>
+              <img src={iconFollowers} width="18px"/>
+              <p>{profile.followers} seguidores</p>
+            </div>
+          </Info>
+        </section>
+      </ProfileContainer>
+    );
+  }
+
+  const renderPost = () => {
+    if (!issue) return null;
+    return (
+      <PostContainer>
+        <section>
+          <header>
+            <nav>
+              <NavLink to="/">
+                <img src={iconBack} />
+                VOLTAR
+              </NavLink>
+              <a href={issue.html_url} target="_blank">
+                VER NO GITHUB
+                <img src={iconGoTo} />
+              </a>
+            </nav>
+          </header>
+          <h3>{issue.title}</h3>
+          <Info>
+            <div>
+              <img src={iconUsername} />
+              <p>{issue.user.login}</p>
+            </div>
+            <div>
+              <img src={iconCallendar} width="14px"/>            
+              <p>{moment(issue.created_at).startOf("minutes").fromNow()}</p>
+            </div>
+            <div>
+              <img src={iconBallon} width="18px"/>
+              <p>{issue.comments} comentários</p>
+            </div>
+          </Info>
+        </section>
+      </PostContainer>
+    )
+  };
 
   return (
     <SummaryContainer>
