@@ -1,6 +1,5 @@
 import { Info, ProfileContainer, SummaryContainer, } from "./style"
 
-import avatarImg from "@assets/avatar.png"
 import iconCompany from "@icons/icon-company.svg"
 import iconUsername from "@icons/icon-username.svg"
 import iconFollowers from "@icons/icon-followers.svg"
